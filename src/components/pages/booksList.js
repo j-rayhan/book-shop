@@ -1,3 +1,4 @@
+"use strict"
 import React, { Component, PropTypes } from 'react';
 
 import {connect} from 'react-redux';
@@ -7,6 +8,7 @@ import {Grid, Col, Row, Button} from 'react-bootstrap';
 import {getBooks} from '../../actions/bookActions';
 
 import BookItem from './bookItem';
+import BookForm from './bookForm';
 
 class BooksList extends Component {
     componentDidMount(){
@@ -29,7 +31,10 @@ class BooksList extends Component {
         return (
             <Grid>
             	<Row style={{marginTop:"15px"}}>
-            	{booksList}
+	            	<Col xs={12} sm={6}>
+	            		<BookForm />
+	            	</Col>
+	            	{booksList}
             	</Row>
             </Grid>
         );
