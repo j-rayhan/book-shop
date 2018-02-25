@@ -4,6 +4,8 @@ import React from 'react';
 
 import {render} from 'react-dom';
 
+import {Provider} from 'react-redux';
+
 import {applyMiddleware ,createStore} from 'redux';
 import logger from 'redux-logger';
 //IMPROT COMBINE REDUCERS
@@ -23,7 +25,9 @@ const store = createStore(reducers, middleware);
 import BooksList from './components/pages/booksList';
 
 render(
-	<BooksList />, document.getElementById('app')
+	<Provider store={store}>
+		<BooksList />
+	</Provider>, document.getElementById('app')
 	);
 // STEP 2 create and dispatch actions
 store.dispatch(postBooks(
@@ -42,15 +46,15 @@ store.dispatch(postBooks(
 
 
 
-//delete action  
- store.dispatch(deleteBook({id:1}))
+// //delete action  
+//  store.dispatch(deleteBook({id:1}))
  
- //update action  
- store.dispatch(updateBook(
- 	{id:2,title: 'New update title'}
- ))
+//  //update action  
+//  store.dispatch(updateBook(
+//  	{id:2,title: 'New update title'}
+//  ))
 
- //-------------- CART ACTION ----------------
+//  //-------------- CART ACTION ----------------
 
-//ADD TO CART  
-store.dispatch(addToCart([{id:2}]))
+// //ADD TO CART  
+// store.dispatch(addToCart([{id:2}]))
