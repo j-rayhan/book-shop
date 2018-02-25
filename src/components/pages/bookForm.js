@@ -1,8 +1,24 @@
 "use strict"
 import React, { Component, PropTypes } from 'react';
+import {findDOMNode} from 'react-dom';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+//IMPORT ACTIONS
+import {postBooks} from '../../actions/bookActions';
+//Style
 import {Well, Panel, FormControl, FormGroup, ControlLabel, Button} from 'react-bootstrap';
 
 class BookForm extends Component {
+
+	handleSubmit(){
+		const book =[{
+			title: findDOMNode(this.refs.title).value,
+			description: findDOMNode(this.refs.description).value,
+			price: findDOMNode(this.refs.price).value,
+		}]
+
+		this.props.postBooks(book);
+	}
 
     render() {
         return (
@@ -35,7 +51,7 @@ class BookForm extends Component {
             			/>
             		</FormGroup>
 
-					<Button bsStyle="primary">Save Book</Button>  
+					<Button onClick={this.handleSubmit.bind(this)} bsStyle="primary">Save Book</Button>  
 
             	</Panel>
             </Well>
@@ -43,5 +59,11 @@ class BookForm extends Component {
     }
 }
 
-export default BookForm;
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({
+		postBooks:postBooks
+	},dispatch);
+}
+
+export default connect(null,mapDispatchToProps)(BookForm);
 
