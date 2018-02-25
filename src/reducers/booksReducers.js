@@ -10,7 +10,7 @@ for (let i = 0; i < 3; i++) {
             a.concat(a)
            // console.log(a);
 }
-const bookList=[
+const booksList=[
             {
                 _id:1,
                 title: 'this is the book title',
@@ -36,8 +36,11 @@ const bookList=[
 
 //Book reducers
 //STEP 3 define reducers
-export const booksReducers = function(state={books:[]}, action){
+export const booksReducers = function(state={books:booksList}, action){
      switch(action.type){
+        case "GET_BOOKS":;
+         return {...state, books: [...state.books]};
+         break;
          case "POST_BOOK":
          // let books = state.books.concat(action.payload);
          //  return {books};
