@@ -50,3 +50,11 @@ store.dispatch({
  	type:"UPDATE_BOOK",
  	payload:{id:2,title: 'New update title'}
  })
+
+ //-------------- CART ACTION ----------------
+
+//ADD TO CART  
+store.dispatch({
+	type: "ADD_TO_CART",
+	payload:[{id:3}]
+})
