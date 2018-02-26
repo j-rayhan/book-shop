@@ -1,8 +1,8 @@
 "use strict"
 //REACT
 import React from 'react';
-
 import {render} from 'react-dom';
+import {Router,Route, IndexRoute, browserHistory} from 'react-router';
 
 import {Provider} from 'react-redux';
 
@@ -23,16 +23,25 @@ const store = createStore(reducers, middleware);
 
 // IMPORT PAGES
 import BooksList from './components/pages/booksList';
-import Menu from './components/pages/menu';
-import Footer from './components/pages/footer';
+import BookForm from './components/pages/bookForm';
+import Cart from './components/pages/cart';
+
+import Main from './main';
+
+const Routes=(
+			<Provider store={store}>
+				<Router history={browserHistory}>
+					<Route path="/" component={Main}>
+						<IndexRoute component={BooksList} />
+						<Route path="/admin" component={BookForm} />
+						<Route path="/cart" component={Cart} />
+					</Route>
+				</Router>
+			</Provider>
+	)
+
 render(
-	<Provider store={store}>
-		<div>
-			<Menu />
-			<BooksList />
-			<Footer />
-		</div>
-	</Provider>, document.getElementById('app')
+	Routes, document.getElementById('app')
 	);
 
 //  //-------------- CART ACTION ----------------
