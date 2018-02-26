@@ -32,7 +32,7 @@ class Menu extends Component {
       </NavItem>
       <NavItem eventKey={2} href="/cart">
         Your Cart
-        <Badge>1</Badge>
+              {(this.props.cartItems > 0)?(<Badge className="badge">{this.props.cartItems}</Badge>):("")}
       </NavItem>
     </Nav>
   </Navbar.Collapse>
