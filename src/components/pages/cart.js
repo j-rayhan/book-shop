@@ -3,13 +3,25 @@ import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 
 //Style
-import { Panel, Row, Col, Label, Button, ButtonGroup} from 'react-bootstrap';
+import {Modal, Panel, Row, Col, Label, Button, ButtonGroup} from 'react-bootstrap';
 
 
 import {bindActionCreators} from 'redux';
 
 import {deleteCartItem, updateCartItem} from '../../actions/cartActions';
 class Cart extends Component{
+	constructor(){
+		super();
+		this.state ={
+			show: false
+		}
+	}
+	open(){
+		this.setState({show:true})
+	}
+	close(){
+		this.setState({show:false})
+	}
 	onDelete(_id){
  		//CREATE A COPY OF THE CURRENT ARRAY OF BOOKS
          const currentBooks = this.props.cart;
@@ -71,6 +83,30 @@ class Cart extends Component{
 			return(
 				<Panel header="Cart" bsStyle="primary">
 				{cartItems}
+				<Row>
+					<Col xs={12}>
+						<h6>Total amount:</h6>
+						<Button onClick={this.open.bind(this)} bsStyle="success" bsSize="small">
+							PROCEED TO CHECKOUT
+						</Button>
+
+						<Modal show={this.state.show} onHide={this.close.bind(this)}>
+				          <Modal.Header closeButton>
+				            <Modal.Title>Thank you!</Modal.Title>
+				          </Modal.Header>
+				          <Modal.Body>
+				          	<h5>Your order has been saved</h5>
+				            <p>You will receive an email confirmation</p>
+				           </Modal.Body>
+				         <Modal.Footer>
+				         	<Col xs={6}>
+				         		<h6> Total Tk </h6>
+				         	</Col>
+				            <Button onClick={this.close.bind(this)}>Close</Button>
+				          </Modal.Footer>
+				        </Modal>
+					</Col>
+				</Row>
 				</Panel>
 			)
 		}
