@@ -4,11 +4,17 @@
 export function cartReducers(state ={cart:[]}, action){
   switch (action.type) {
     case "ADD_TO_CART":
-    return {cart:[...state, ...action.payload] };
+    return {...state, 
+    	cart:action.payload,
+    	totalQty: grantTotal(action.payload).qty,
+    	grantTotal: grantTotal(action.payload).amount
+    	};
     break;
 
     case "DELETE_CART_ITEM":
-    return {cart:[...state, ...action.payload] };
+    return {...state, cart:action.payload,
+    		totalQty: grantTotal(action.payload).qty,
+    		grantTotal: grantTotal(action.payload).amount };
     break;
 
     case "UPDATE_CART_ITEM":
@@ -26,10 +32,32 @@ export function cartReducers(state ={cart:[]}, action){
         quantity: currentBooksToUpdate[indexToUpdate].quantity + action.unit
      }
      let cartUpdate = [...currentBooksToUpdate.slice(0, indexToUpdate), newBookToUpdate, ...currentBooksToUpdate.slice(indexToUpdate + 1)];
-    return {...state, cart:cartUpdate};
+    return {...state, cart:cartUpdate,
+    		totalQty: grantTotal(cartUpdate).qty,
+    		grantTotal: grantTotal(cartUpdate).amount
+    };
     break;
     
     
   }
   return state
+}
+
+
+//CALCULATE TOTALS
+export function grantTotal(payloadArr) {
+	const grantTotal = payloadArr.map(function(cartArr) {
+		return (cartArr.price * cartArr.quantity);
+	}).reduce(function(a,b){
+		return a+b;
+	},0)// START SUMMINT FROM INDEX[0]
+
+	const totalQty = payloadArr.map(function(qty) {
+		// 
+		return qty.quantity;
+	}).reduce(function(a,b){
+		return a+b;
+	})
+
+	return	{amount: grantTotal.toFixed(2), qty: totalQty}
 }
