@@ -5,7 +5,25 @@ import {connect} from 'react-redux';
 //Style
 import { Panel, Row, Col, Label, Button, ButtonGroup} from 'react-bootstrap';
 
+
+import {bindActionCreators} from 'redux';
+
+import {deleteCartItem} from '../../actions/cartActions';
 class Cart extends Component{
+	onDelete(_id){
+ 		//CREATE A COPY OF THE CURRENT ARRAY OF BOOKS
+         const currentBooks = this.props.cart;
+         //DETERMINE AT WHICH INDEX IN BOOKS ARRAY IS THE BOOK TO BE DELETED
+         const indexToDelete = currentBooks.findIndex(
+                function(cart){
+                    return cart._id === parseInt(_id);
+                }
+            )
+         // USE SLICE TO REMOVE THE BOOK AT THE SPECIFIED INDEX
+         let cartAfterDelete = [...currentBooks.slice(0, indexToDelete), ...currentBooks.slice(indexToDelete + 1)];
+         
+		this.props.deleteCartItem(cartAfterDelete);
+	}
 	render(){
 		if (this.props.cart[0]) {
 			return this.renderCart();
@@ -37,13 +55,13 @@ class Cart extends Component{
 										<Button bsStyle="default" bsSize="small">+</Button>
 										<Button bsStyle="default" bsSize="small">-</Button>
 										<span></span>
-										<Button bsStyle="danger" bsSize="small">DELET</Button>
+										<Button onClick={this.onDelete.bind(this, cartArr._id)} bsStyle="danger" bsSize="small">DELET</Button>
 									</ButtonGroup>
 								</Col>
 							</Row>
 						</Panel>
 					)
-			});
+			}, this);
 			return(
 				<Panel header="Cart" bsStyle="primary">
 				{cartItems}
@@ -58,4 +76,10 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps)(Cart);
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({
+		deleteCartItem:deleteCartItem
+	},dispatch)
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Cart);
