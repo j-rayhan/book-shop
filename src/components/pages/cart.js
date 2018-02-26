@@ -8,7 +8,7 @@ import { Panel, Row, Col, Label, Button, ButtonGroup} from 'react-bootstrap';
 
 import {bindActionCreators} from 'redux';
 
-import {deleteCartItem} from '../../actions/cartActions';
+import {deleteCartItem, updateCartItem} from '../../actions/cartActions';
 class Cart extends Component{
 	onDelete(_id){
  		//CREATE A COPY OF THE CURRENT ARRAY OF BOOKS
@@ -23,6 +23,12 @@ class Cart extends Component{
          let cartAfterDelete = [...currentBooks.slice(0, indexToDelete), ...currentBooks.slice(indexToDelete + 1)];
          
 		this.props.deleteCartItem(cartAfterDelete);
+	}
+	onIncrement(_id){
+		this.props.updateCartItem(_id,1);
+	}
+	onDecrement(_id, quantity){
+		if (quantity > 1) this.props.updateCartItem(_id,-1);
 	}
 	render(){
 		if (this.props.cart[0]) {
@@ -48,12 +54,12 @@ class Cart extends Component{
 									<h6>TK. {cartArr.price}</h6>
 								</Col>
 								<Col xs={12} sm={2}>
-									<h6>qty. <Label bsStyle="success">10</Label></h6>
+									<h6>qty. <Label bsStyle="success">{cartArr.quantity}</Label></h6>
 								</Col>
 								<Col xs={6} sm={4}>
 									<ButtonGroup style={{minWidth:"300px"}}>
-										<Button bsStyle="default" bsSize="small">+</Button>
-										<Button bsStyle="default" bsSize="small">-</Button>
+										<Button onClick={this.onIncrement.bind(this, cartArr._id)} bsStyle="default" bsSize="small">+</Button>
+										<Button onClick={this.onDecrement.bind(this, cartArr._id, cartArr.quantity)} bsStyle="default" bsSize="small">-</Button>
 										<span></span>
 										<Button onClick={this.onDelete.bind(this, cartArr._id)} bsStyle="danger" bsSize="small">DELET</Button>
 									</ButtonGroup>
@@ -78,7 +84,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
-		deleteCartItem:deleteCartItem
+		deleteCartItem:deleteCartItem,
+		updateCartItem:updateCartItem
 	},dispatch)
 }
 
