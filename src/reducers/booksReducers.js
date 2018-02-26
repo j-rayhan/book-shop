@@ -53,7 +53,7 @@ export const booksReducers = function(state={books:booksList}, action){
          //DETERMINE AT WHICH INDEX IN BOOKS ARRAY IS THE BOOK TO BE DELETED
          const indexToDelete = currentBooks.findIndex(
                 function(book){
-                    return book.id === action.payload.id;
+                    return book._id === parseInt(action.payload);
                 }
             )
          // USE SLICE TO REMOVE THE BOOK AT THE SPECIFIED INDEX
@@ -66,7 +66,7 @@ export const booksReducers = function(state={books:booksList}, action){
          //DETERMINE AT WHICH INDEX IN BOOKS ARRAY IS THE BOOK TO BE DELETED
          const indexToUpdate = currentBooksToUpdate.findIndex(
                 function(book){
-                    return book.id === action.payload.id;
+                    return book._id === action.payload._id;
                 }
             )
          // CREATE A NEW BOOK BOJECT WITH THE NEW VALUES AND WITH THE SAME ARRAY INDEX OF THE ITEM WE WANT TO
