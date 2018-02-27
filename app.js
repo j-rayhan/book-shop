@@ -48,6 +48,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 			res.json(books);
 		})
 	});
+
+	//---------->UPDATE BOOKS <<<---
+	app.put('/books/:_id', function(req, res){
+		// console.log("Hello...");
+		var book = req.body;
+		var query = req.params._id;
+	// IF THE FIELD DOESN'T EXIST $SET WILL SET A NEW FIELD
+		var update ={
+			'$set':{
+				title: book.title,
+				description: book.description,
+				image: book.image,
+				price: book.price
+			}
+		};
+		// console.log(update);
+		// WHEN TRUE RETURNS THE UPDATED DOCUMENT
+		var options = {new : true};
+		Books.findOneAndUpdate(query, update, options, function(err, books){
+			if (err) {
+				throw err;
+			}
+			res.json(books);
+		})
+	});
+
 	//---------->DELETE BOOKS <<<---
 	app.delete('/books/:_id', function(req, res){
 		var query = {_id: req.params._id};
@@ -58,7 +84,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 			}
 			res.json(books);
 		})
-	})
+	});
 
 // END APIs
 app.get('*', function(req, res) {
