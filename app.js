@@ -38,6 +38,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 			res.json(books);
 		})
 	})
+
+	//---------->GET BOOKS <<<---
+	app.get('/books', function(req, res){
+		Books.find(function(err, books){
+			if (err) {
+				throw err;
+			}
+			res.json(books);
+		})
+	})
 // END APIs
 app.get('*', function(req, res) {
 	res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
