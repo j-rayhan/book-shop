@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 			}
 			res.json(books);
 		})
-	})
+	});
 
 	//---------->GET BOOKS <<<---
 	app.get('/books', function(req, res){
@@ -47,7 +47,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 			}
 			res.json(books);
 		})
+	});
+	//---------->DELETE BOOKS <<<---
+	app.delete('/books/:_id', function(req, res){
+		var query = {_id: req.params._id};
+
+		Books.remove(query, function(err, books){
+			if (err) {
+				throw err;
+			}
+			res.json(books);
+		})
 	})
+
 // END APIs
 app.get('*', function(req, res) {
 	res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
