@@ -16,7 +16,7 @@ class BookItem extends Component {
 			quantity:1
 		}]
 		//CHECK IF CART IS EMPTY
-		if (this.props.cart.length > 0) 
+		if (this.props.cart.length > 0)
 			{
 				//CART IS NOT EMPTY
 				let _id = this.props._id;
@@ -29,14 +29,14 @@ class BookItem extends Component {
 				if (cartIndex === -1)
 				 {
 				 	this.props.addToCart(book);
-				 } 
-				 else 
+				 }
+				 else
 				 {
 				 	//WE NEED TO UPDATE QUANTITY
-				 	this.props.updateCartItem(_id,1);
+				 	this.props.updateCartItem(_id,1, this.props.cart);
 				 }
-			} 
-		else 
+			}
+		else
 		{
 			//CART IS EMPTY
 			this.props.addToCart(book);
@@ -50,7 +50,7 @@ class BookItem extends Component {
 			         <h6>{this.props.title}</h6>
 					<p>{this.props.description}</p>
 					<h6>TK : {this.props.price}</h6>
-					<Button onClick={this.handleCart.bind(this)} bsStyle="primary">Primary</Button>  
+					<Button onClick={this.handleCart.bind(this)} bsStyle="primary">Buy now</Button>
 				</Col>
 				</Row>
 			</Well>
