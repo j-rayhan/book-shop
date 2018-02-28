@@ -3,6 +3,13 @@
 //Cart reducers
 export function cartReducers(state ={cart:[]}, action){
   switch (action.type) {
+    case "GET_CART":
+    return {...state,
+    	cart:action.payload,
+    	totalQty: grantTotal(action.payload).qty,
+    	grantTotal: grantTotal(action.payload).amount
+    	};
+    break;
     case "ADD_TO_CART":
     return {...state,
     	cart:action.payload,

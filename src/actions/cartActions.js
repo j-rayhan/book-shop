@@ -1,10 +1,31 @@
 "use strict"
+import axios from 'axios';
+
+// GET CART
+export function	getCart(cart){
+	return function(dispatch){
+		axios.get('/api/cart', cart)
+		.then(function(response){
+			dispatch({type: 'GET_CART', payload: response.data})
+		})
+		.catch(function(err){
+			dispatch({type: 'GET_CART_REJECTED', mst: 'error when getting to the cart from session'})
+
+		})
+	}
+}
 
 // ADD CART  BOOK
-export function	addToCart(book){
-	return {
-		type: "ADD_TO_CART",
-		payload: book
+export function	addToCart(cart){
+	return function(dispatch){
+		axios.post('/api/cart', cart)
+		.then(function(response){
+			dispatch({type: 'ADD_TO_CART', payload: response.data})
+		})
+		.catch(function(err){
+			dispatch({type: 'ADD_TO_CART_REJECTED', mst: 'error when adding to the cart'})
+
+		})
 	}
 }
 
@@ -26,16 +47,32 @@ export function	updateCartItem(_id,unit, cart){
 	let cartUpdate = [...currentBooksToUpdate.slice(0, indexToUpdate),
 		newBookToUpdate, ...currentBooksToUpdate.slice(indexToUpdate + 1)];
 
-	return {
-		type: "UPDATE_CART_ITEM",
-		payload: cartUpdate
+	return function(dispatch){
+		axios.post('/api/cart', cartUpdate)
+		.then(function(response){
+			dispatch({type: 'UPDATE_CART_ITEM', payload: response.data})
+		})
+		.catch(function(err){
+			dispatch({type: 'UPDATE_CART_ITEM_REJECTED', mst: 'error when adding to the cart'})
+
+		})
 	}
 }
 
 // DELETE FROM CART
 export function	deleteCartItem(cart){
-	return {
-		type: "DELETE_CART_ITEM",
-		payload: cart
+	return function(dispatch){
+		axios.post('/api/cart', cart)
+		.then(function(response){
+			dispatch({type: 'DELETE_CART_ITEM', payload: response.data})
+		})
+		.catch(function(err){
+			dispatch({type: 'DELETE_CART_ITEM_REJECTED', mst: 'error when deleteing an item from the cart'})
+
+		})
 	}
+	// return {
+	// 	type: "DELETE_CART_ITEM",
+	// 	payload: cart
+	// }
 }

@@ -8,7 +8,7 @@ import {Modal, Panel, Row, Col, Label, Button, ButtonGroup} from 'react-bootstra
 
 import {bindActionCreators} from 'redux';
 
-import {deleteCartItem, updateCartItem} from '../../actions/cartActions';
+import {getCart, deleteCartItem, updateCartItem} from '../../actions/cartActions';
 class Cart extends Component{
 	constructor(){
 		super();
@@ -22,13 +22,16 @@ class Cart extends Component{
 	close(){
 		this.setState({show:false})
 	}
+	componentDidMount(){
+		this.props.getCart();
+	}
 	onDelete(_id){
  		//CREATE A COPY OF THE CURRENT ARRAY OF BOOKS
          const currentBooks = this.props.cart;
          //DETERMINE AT WHICH INDEX IN BOOKS ARRAY IS THE BOOK TO BE DELETED
          const indexToDelete = currentBooks.findIndex(
                 function(cart){
-                    return cart._id === parseInt(_id);
+                    return cart._id === _id;
                 }
             )
          // USE SLICE TO REMOVE THE BOOK AT THE SPECIFIED INDEX
@@ -122,7 +125,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
 		deleteCartItem:deleteCartItem,
-		updateCartItem:updateCartItem
+		updateCartItem:updateCartItem,
+		getCart:getCart
 	},dispatch)
 }
 
