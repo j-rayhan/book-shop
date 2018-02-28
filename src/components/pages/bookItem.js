@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 
 import {addToCart, updateCartItem} from '../../actions/cartActions';
 //style
-import {Well, Col, Row, Button} from 'react-bootstrap';
+import {Well, Col, Row, Button, Image} from 'react-bootstrap';
 
 class BookItem extends Component {
 	handleCart(){
@@ -12,6 +12,7 @@ class BookItem extends Component {
 			_id: this.props._id,
 			title: this.props.title,
 			description: this.props.description,
+			images: this.props.images,
 			price: this.props.price,
 			quantity:1
 		}]
@@ -46,12 +47,15 @@ class BookItem extends Component {
         return (
         	<Well>
         		<Row>
-        		<Col xs={12}>
-			         <h6>{this.props.title}</h6>
-					<p>{this.props.description}</p>
-					<h6>TK : {this.props.price}</h6>
-					<Button onClick={this.handleCart.bind(this)} bsStyle="primary">Buy now</Button>
-				</Col>
+							<Col xs={12} sm={4}>
+								<Image src={this.props.images} responsive />
+							</Col>
+        		<Col xs={6} sm={8}>
+					    <h6>{this.props.title}</h6>
+							<p>{this.props.description}</p>
+							<h6>TK : {this.props.price}</h6>
+							<Button onClick={this.handleCart.bind(this)} bsStyle="primary">Buy now</Button>
+						</Col>
 				</Row>
 			</Well>
         );
