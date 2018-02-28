@@ -36,17 +36,17 @@ const booksList=[
 
 //Book reducers
 //STEP 3 define reducers
-export const booksReducers = function(state={books:booksList}, action){
+export const booksReducers = function(state={books:[]}, action){
      switch(action.type){
         case "GET_BOOKS":;
-         return {...state, books: [...state.books]};
+         return {...state, books: [...action.payload]};
          break;
          case "POST_BOOK":
          // let books = state.books.concat(action.payload);
          //  return {books};
          return {books: [...state.books, ...action.payload]};
          break;
-         
+
          case "DELETE_BOOK":
         //CREATE A COPY OF THE CURRENT ARRAY OF BOOKS
          const currentBooks = [...state.books];
@@ -76,7 +76,7 @@ export const booksReducers = function(state={books:booksList}, action){
             title: action.payload.title
          }
          console.log('what is it newBookToUpdate ', newBookToUpdate);
-         // USE SLICE TO REMOVE THE BOOK AT THE SPECIFIED INDEX, REPLACE WITH THE NEW OBJECT ANC CONCATE WITH 
+         // USE SLICE TO REMOVE THE BOOK AT THE SPECIFIED INDEX, REPLACE WITH THE NEW OBJECT ANC CONCATE WITH
          // THE REST OF ITEMS IN THE ARRAY
          return {books: [...currentBooksToUpdate.slice(0, indexToUpdate), newBookToUpdate, ...currentBooksToUpdate.slice(indexToUpdate + 1)]};
          break;
