@@ -101,7 +101,7 @@ var Books = require('./models/books.js');
 
 		Books.remove(query, function(err, books){
 			if (err) {
-				throw err;
+				throw console.log("#API DELETE BOOK ", err);
 			}
 			res.json(books);
 		})

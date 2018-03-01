@@ -1,3 +1,6 @@
+require('babel-core/register')({
+	"presets":["es2015", "react", "stage-1"]
+});
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -7,6 +10,8 @@ var logger = require('morgan');
 var httpProxy = require('http-proxy');
 // var index = require('./routes/index');
 // var users = require('./routes/users');
+ var requestHandler = require('./requestHandler');
+
 
 var app = express();
 //PROXY TO API
@@ -17,6 +22,7 @@ const apiProxy = httpProxy.createProxyServer({
 app.use('/api',function(req, res){
 	apiProxy.web(req, res);
 })
+//End PROXY
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -30,9 +36,13 @@ app.use(logger('dev'));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('*', function(req, res) {
-	res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
-})
+app.set('view engine', 'ejs');
+
+app.use(requestHandler);
+
+// app.get('*', function(req, res) {
+// 	res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+// })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
