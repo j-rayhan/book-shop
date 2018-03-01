@@ -43,15 +43,17 @@ export const booksReducers = function(state={books:[]}, action){
          break;
          case "POST_BOOK":
          return {...state, books: [...state.books, ...action.payload],
-           msg:'Saved! Click to continue', style:'success'};
+           msg:'Saved! Click to continue', style:'success', validation:'success'};
          break;
 
          case "POST_BOOK_REJECTED":
-         return {...state, msg: 'Please, try again', style:'danger'};
+         return {...state, msg: 'Please, try again',
+          style:'danger', validation: 'error'};
          break;
 
          case "RESET_FORM":
-         return {...state, msg: null, style:'primary'};
+         return {...state, msg: null,
+           style:'primary', validation:null};
          break;
 
          case "DELETE_BOOK":
