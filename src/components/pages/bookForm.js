@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 
 import axios from 'axios';
 //IMPORT ACTIONS
-import {postBooks, deleteBook, getBooks} from '../../actions/bookActions';
+import {postBooks, deleteBook, getBooks , resetBookForm} from '../../actions/bookActions';
 //Style
 import {Well, Row, Col, Panel, FormControl, InputGroup, DropdownButton, MenuItem, FormGroup, ControlLabel, Image, Button} from 'react-bootstrap';
 
@@ -31,13 +31,19 @@ class BookForm extends Component {
 	}
 	handleSubmit(){
 		const book =[{
-			title: findDOMNode(this.refs.title).value,
-			description: findDOMNode(this.refs.description).value,
-			images: findDOMNode(this.refs.images).value,
+			title: findDOMNode(this.refs.title).valalue,
 			price: findDOMNode(this.refs.price).value,
 		}]
 
 		this.props.postBooks(book);
+	}
+	resetForm(){
+		 this.props.resetBookForm();
+		 findDOMNode(this.refs.title).value='',
+		 findDOMNode(this.refs.description).value='',
+		 findDOMNode(this.refs.images).value='',
+		 findDOMNode(this.refs.price).value=''
+
 	}
 	handleSelect(img){
 		this.setState({
@@ -110,7 +116,11 @@ class BookForm extends Component {
 		            			/>
 		            		</FormGroup>
 
-							<Button onClick={this.handleSubmit.bind(this)} bsStyle="primary">Save Book</Button>
+							<Button
+								onClick={(!this.props.msg)?(this.handleSubmit.bind(this)):(this.resetForm.bind(this))}
+								 bsStyle={(!this.props.style)?("primary"):(this.props.style)}>
+								 {(!this.props.msg)?("Save book"):(this.props.msg)}
+								 </Button>
 
 		            	</Panel>
 		                <Panel style={{marginTop:"25px"}}>
@@ -133,6 +143,8 @@ class BookForm extends Component {
 
 function mapStateToProps(state) {
     return{
+				msg:state.books.msg,
+				style:state.books.style,
         books:state.books.books
     }
 }
@@ -141,7 +153,8 @@ function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
 		postBooks,
     deleteBook,
-		getBooks
+		getBooks,
+		resetBookForm
 	},dispatch);
 }
 
