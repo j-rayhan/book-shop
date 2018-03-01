@@ -31,7 +31,9 @@ class BookForm extends Component {
 	}
 	handleSubmit(){
 		const book =[{
-			title: findDOMNode(this.refs.title).valalue,
+			title: findDOMNode(this.refs.title).value,
+			description:findDOMNode(this.refs.description).value,
+			images: findDOMNode(this.refs.images).value,
 			price: findDOMNode(this.refs.price).value,
 		}]
 
@@ -41,8 +43,8 @@ class BookForm extends Component {
 		 this.props.resetBookForm();
 		 findDOMNode(this.refs.title).value='',
 		 findDOMNode(this.refs.description).value='',
-		 findDOMNode(this.refs.images).value='',
-		 findDOMNode(this.refs.price).value=''
+		 findDOMNode(this.refs.price).value='',
+		 this.setState({img:''})
 
 	}
 	handleSelect(img){
@@ -102,7 +104,7 @@ class BookForm extends Component {
 		            		<FormGroup controlId="description" validationState={this.props.validation}>
 		            			<ControlLabel>Description</ControlLabel>
 		            			<FormControl
-		            				type="text"
+		            				componentClass="textarea"
 		            				placeholder="Enter Book Description"
 		            				ref="description"
 		            			/>

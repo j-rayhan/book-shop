@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Grid, Col, Row, Button} from 'react-bootstrap';
+import {Carousel ,Grid, Col, Row, Button} from 'react-bootstrap';
 
 import {getBooks} from '../../actions/bookActions';
 
@@ -12,6 +12,7 @@ import BookForm from './bookForm';
 import Cart from './cart';
 
 class BooksList extends Component {
+
     componentDidMount(){
     	//DISPATCH AN ACTION
     	this.props.getBooks();
@@ -33,7 +34,29 @@ class BooksList extends Component {
         return (
             <Grid>
             	<Row style={{marginTop:"15px"}}>
-            		<Cart />
+                <Carousel>
+                  <Carousel.Item>
+                    <img width={900} height={500} alt="900x500" src="/images/carousel/home_0.png" />
+                    <Carousel.Caption>
+                      <h3>First slide label</h3>
+                      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item>
+                    <img width={900} height={500} alt="900x500" src="/images/carousel/home_1.png" />
+                    <Carousel.Caption>
+                      <h3>Second slide label</h3>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item>
+                    <img width={900} height={500} alt="900x500" src="/images/carousel/home_2.png" />
+                    <Carousel.Caption>
+                      <h3>Third slide label</h3>
+                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                </Carousel>
             	</Row>
             	<Row style={{marginTop:"15px"}}>
 	            	{booksList}
