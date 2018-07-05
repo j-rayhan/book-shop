@@ -9,7 +9,7 @@ export function	getCart(cart){
 			dispatch({type: 'GET_CART', payload: response.data})
 		})
 		.catch(function(err){
-			dispatch({type: 'GET_CART_REJECTED', mst: 'error when getting to the cart from session'})
+			dispatch({type: 'GET_CART_REJECTED', msg: 'error when getting to the cart from session'})
 
 		})
 	}
@@ -23,7 +23,7 @@ export function	addToCart(cart){
 			dispatch({type: 'ADD_TO_CART', payload: response.data})
 		})
 		.catch(function(err){
-			dispatch({type: 'ADD_TO_CART_REJECTED', mst: 'error when adding to the cart'})
+			dispatch({type: 'ADD_TO_CART_REJECTED', msg: 'error when adding to the cart'})
 
 		})
 	}
@@ -53,7 +53,7 @@ export function	updateCartItem(_id,unit, cart){
 			dispatch({type: 'UPDATE_CART_ITEM', payload: response.data})
 		})
 		.catch(function(err){
-			dispatch({type: 'UPDATE_CART_ITEM_REJECTED', mst: 'error when adding to the cart'})
+			dispatch({type: 'UPDATE_CART_ITEM_REJECTED', msg: 'error when adding to the cart'})
 
 		})
 	}
@@ -67,7 +67,7 @@ export function	deleteCartItem(cart){
 			dispatch({type: 'DELETE_CART_ITEM', payload: response.data})
 		})
 		.catch(function(err){
-			dispatch({type: 'DELETE_CART_ITEM_REJECTED', mst: 'error when deleteing an item from the cart'})
+			dispatch({type: 'DELETE_CART_ITEM_REJECTED', msg: 'error when deleteing an item from the cart'+ err})
 
 		})
 	}

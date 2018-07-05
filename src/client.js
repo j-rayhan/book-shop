@@ -19,33 +19,18 @@ import {addToCart} from './actions/cartActions';
 
 
 const middleware = applyMiddleware(thunk, logger());
-// STEP 1 create the store
-const store = createStore(reducers, middleware);
-
-// IMPORT PAGES
-import BooksList from './components/pages/booksList';
-import BookForm from './components/pages/bookForm';
-import Cart from './components/pages/cart';
-
-import Main from './main';
+// WE WILL PASS INITIAL STATE FROM SERVER STORE
+const initialState = window._APP_INITIAL_STATE_;
+const store = createStore(reducers, initialState, middleware);
+// IMPORT ROUTES
+import routes from './routes';
 
 const Routes=(
 			<Provider store={store}>
-				<Router history={browserHistory}>
-					<Route path="/" component={Main}>
-						<IndexRoute component={BooksList} />
-						<Route path="/admin" component={BookForm} />
-						<Route path="/cart" component={Cart} />
-					</Route>
-				</Router>
+				{routes}
 			</Provider>
 	)
 
 render(
 	Routes, document.getElementById('app')
 	);
-
-//  //-------------- CART ACTION ----------------
-
-// //ADD TO CART
-// store.dispatch(addToCart([{id:2}]))

@@ -36,21 +36,21 @@ class BooksList extends Component {
             	<Row style={{marginTop:"15px"}}>
                 <Carousel>
                   <Carousel.Item>
-                    <img width={900} height={500} alt="900x500" src="/images/carousel/home_0.png" />
+                    <img width={900} height={300} alt="900x500" src="/images/carousel/home_0.png" />
                     <Carousel.Caption>
                       <h3>First slide label</h3>
                       <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                     </Carousel.Caption>
                   </Carousel.Item>
                   <Carousel.Item>
-                    <img width={900} height={500} alt="900x500" src="/images/carousel/home_1.png" />
+                    <img width={900} height={300} alt="900x500" src="/images/carousel/home_1.png" />
                     <Carousel.Caption>
                       <h3>Second slide label</h3>
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     </Carousel.Caption>
                   </Carousel.Item>
                   <Carousel.Item>
-                    <img width={900} height={500} alt="900x500" src="/images/carousel/home_2.png" />
+                    <img width={900} height={300} alt="900x500" src="/images/carousel/home_2.png" />
                     <Carousel.Caption>
                       <h3>Third slide label</h3>
                       <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>

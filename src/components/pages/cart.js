@@ -46,6 +46,7 @@ class Cart extends Component{
 		if (quantity > 1) this.props.updateCartItem(_id,-1, this.props.cart);
 	}
 	render(){
+		console.log('cart length: ',this.props.cart.length);
 		if (this.props.cart[0]) {
 			return this.renderCart();
 		} else {
@@ -54,7 +55,15 @@ class Cart extends Component{
 
 	}
 		renderEmpty(){
-			return (<div></div>)
+			return (<div>
+				<Panel header="Cart" bsStyle="primary"  style={{marginTop: "50px"}}>
+					<Row>
+						<Col xs={12}>
+							<h3>Your Cart is Empty</h3>
+						</Col>
+					</Row>
+				</Panel>
+			</div>)
 		}
 
 		renderCart(){
@@ -84,7 +93,7 @@ class Cart extends Component{
 					)
 			}, this);
 			return(
-				<Panel header="Cart" bsStyle="primary">
+				<Panel header="Cart" bsStyle="primary"  style={{marginTop: "50px"}}>
 				{cartItems}
 				<Row>
 					<Col xs={12}>

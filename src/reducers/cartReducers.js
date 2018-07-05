@@ -8,27 +8,28 @@ export function cartReducers(state ={cart:[]}, action){
     	cart:action.payload,
     	totalQty: grantTotal(action.payload).qty,
     	grantTotal: grantTotal(action.payload).amount
-    	};
+    	}
     break;
     case "ADD_TO_CART":
     return {...state,
     	cart:action.payload,
     	totalQty: grantTotal(action.payload).qty,
     	grantTotal: grantTotal(action.payload).amount
-    	};
+    	}
     break;
 
     case "DELETE_CART_ITEM":
     return {...state, cart:action.payload,
     		totalQty: grantTotal(action.payload).qty,
-    		grantTotal: grantTotal(action.payload).amount };
+    		grantTotal: grantTotal(action.payload).amount
+      }
     break;
 
     case "UPDATE_CART_ITEM":
      return {...state, cart:action.payload,
     		totalQty: grantTotal(action.payload).qty,
     		grantTotal: grantTotal(action.payload).amount
-    };
+    }
     break;
 
 
@@ -50,7 +51,7 @@ export function grantTotal(payloadArr) {
 		return qty.quantity;
 	}).reduce(function(a,b){
 		return a+b;
-	})
+	},0)
 
 	return	{amount: grantTotal.toFixed(2), qty: totalQty}
 }

@@ -12,8 +12,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // APIs
-	var mongoose = require('mongoose');
-	mongoose.connect('mongodb://localhost:27017/bookshop');
+var mongoose = require('mongoose');
+// setTimeout(function() {
+//   mongoose.connect('mongodb://testjr1:testjr1@ds151508.mlab.com:51508/bookshop');
+// 	// mongoose.connect('mongodb://localhost/myapp');
+// }, 60000);
+	// MONGO LAB
+	mongoose.connect('mongodb://testjr1:testjr1@ds151508.mlab.com:51508/bookshop',{connectTimeoutMS: 60000});
+	// mongoose.connect('mongodb://localhost:27017/bookshop');
+// 	mongoose.connect('mongodb://localhost:27017/test', {
+//   connectTimeoutMS: 1000
+//   // Note that mongoose will **not** pull `bufferCommands` from the query string
+// });
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console,'#Mongodb connection Error'));
@@ -32,14 +42,15 @@ app.post('/cart', function(req,res){
 	req.session.cart = cart;
 	req.session.save(function(err){
 		if (err) {
-			throw err
+			console.log('#API POST CART SESSION ERROR ', err);
 		}
 		res.json(req.session.cart);
 	})
 });
 // GET SESSION CART API
 app.get('/cart', function(req,res){
-	if (typeof req.session.cart !== 'undefined') {
+	if (typeof req.session.cart !== 'undefined' && req.session.cart.length > 0) {
+		// console.log("....session...cart",req.session.cart.length);
 		res.json(req.session.cart);
 	}
 });
@@ -129,7 +140,7 @@ app.get('/images', function(req, res){
 
 app.listen(3001, function(err){
 	if (err) {
-		return console.log(err);
+		return console.log('#API SERVER ERROR : ',err);
 	}
   console.log('API server Start on port : 3001');
 })
